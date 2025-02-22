@@ -1,0 +1,18 @@
+Metadata-Version: 2.2
+Name: catlibrary
+Version: 1.2
+Summary: Libreria para obtener gatos
+Home-page: probando
+Author: Samuel
+Author-email: prueba@gmail.com
+Requires: requests
+Description-Content-Type: text
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires
+Dynamic: summary
+
+Hola
