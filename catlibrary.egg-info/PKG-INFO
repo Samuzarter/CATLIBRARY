@@ -1,18 +1,20 @@
 Metadata-Version: 2.2
 Name: catlibrary
-Version: 1.2
+Version: 1.3
 Summary: Libreria para obtener gatos
-Home-page: probando
-Author: Samuel
-Author-email: prueba@gmail.com
-Requires: requests
+Home-page: https://github.com/Samuzarter/CATLIBRARY.git
+Author: Samuel Quiroz Rincón
+Author-email: samuelquirozrincon1@gmail.com
 Description-Content-Type: text
+Requires-Dist: requests
+Requires-Dist: python-decouple
+Requires-Dist: python-dotenv
 Dynamic: author
 Dynamic: author-email
 Dynamic: description
 Dynamic: description-content-type
 Dynamic: home-page
-Dynamic: requires
+Dynamic: requires-dist
 Dynamic: summary
 
 Hola
