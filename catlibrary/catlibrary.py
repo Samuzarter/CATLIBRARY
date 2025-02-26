@@ -1,16 +1,19 @@
 #CatLibrary
-import os
 import requests
 import json
 from decouple import config
+from pathlib import Path
 
+path = Path(".")
+url_Api = "https://cataas.com/api"
+url_Cat = "https://cataas.com/cat"
 
 def cats():
     """
     Esta funcion retorna un diccionario con el ID y TAGS de los primeros 10 gatos de la API CATAAS
     """
     #Se realiza el request a la Api por medio de una variable de entorno que contiene la URL, concatenado con el direccionamiento
-    data = requests.get(config('URL_API')+"/cats")
+    data = requests.get(url_Api+"/cats")
 
     #Se verifica el código de estado de la solcitud
     if data.status_code == 200:
@@ -31,7 +34,7 @@ def cats_count():
     Retorna la cantidad de gatos que hay en la API CATAAS
     """
     # Se realiza el request a la Api por medio de una variable de entorno que contiene la URL, concatenado con el direccionamiento
-    data = requests.get(config('URL_API')+"/count")
+    data = requests.get(url_Api+"/count")
     #Se verifica el código de estado de la solcitud
     if data.status_code == 200:
         data = data.json()
@@ -54,28 +57,21 @@ def cat_say(txt: str):
     Un aviso en donde se le especifcia la ruta donde se guardo la imagen en su dispositivo.
     """
     #Se realiza el request a la Api por medio de una variable de entorno que contiene la URL, concatenado con el direccionamiento
-    data = requests.get(config('URL_CAT')+f"/says/{txt}?")
+    data = requests.get(url_Cat+f"/says/{txt}?")
     #Se verifica el código de estado de la solcitud
     if data.status_code == 200:
         imagen = data.content
         #Se crea un path en donde por medio de la libreria OS se busca la carpeta Downloads para guardar la imagen
-        path = obtener_ruta_carpeta()
-        
-        with open(os.path.join(path,'Imagen.jpg'),'wb') as f:
-            f.write(imagen)
-        return(f"Imagen guardada en {path} con el nombre de imagen.jpg")
+        imagepath = Verify_Images_Directory() / "Imagen.jpg"
+        imagepath.touch()
+        imagepath.write_bytes(imagen)
+        return(f"Imagen guardada en {imagepath} con el nombre de imagen.jpg")
 
 
-def obtener_ruta_carpeta():
-    """
-    Esta funcion retorna un path de la carpeta descargas
-    """
-    # Se tiene una lista con las posibles rutas de descarga 
-    rutas = [os.path.join(os.path.expanduser('~'),'Downloads'),os.path.join(os.path.expanduser('~'),'Descargas')]
-    # Se itera para encontrar la acorde con el idioma del dispositivo
-    for ruta in rutas:
-        #En caso de que se encuentre una de estas se retornará
-        if os.path.exists(ruta):
-            return ruta
-    # En caso de no encontrarla se retorma la dirección home del computado
-    return os.path.expanduser('~')
+def Verify_Images_Directory():
+    imagesdir = path / "Images"
+    if imagesdir.exists():
+        return imagesdir
+    else:
+        imagesdir.mkdir()
+        return imagesdir
