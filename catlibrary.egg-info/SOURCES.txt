@@ -5,4 +5,5 @@ catlibrary/catlibrary.py
 catlibrary.egg-info/PKG-INFO
 catlibrary.egg-info/SOURCES.txt
 catlibrary.egg-info/dependency_links.txt
+catlibrary.egg-info/requires.txt
 catlibrary.egg-info/top_level.txt
